@@ -36,6 +36,9 @@ public class InstructorServlet extends HttpServlet {
 
             getServletContext().getRequestDispatcher("/instructor-page.jsp").forward(request, response);
         }
+        else {
+            response.sendRedirect("/instructors?department=cnet");
+        }
 
     }
 

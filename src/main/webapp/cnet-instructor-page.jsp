@@ -7,7 +7,7 @@
     <title>CNET Instructors</title>
     <meta
             property="og:title"
-            content="CNET-Instructor-Page - exported project"
+            content="CNET Instructors"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />

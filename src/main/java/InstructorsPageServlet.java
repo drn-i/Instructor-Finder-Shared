@@ -33,6 +33,9 @@ public class InstructorsPageServlet extends HttpServlet {
         else if (department.equals("Computer Science")) {
             getServletContext().getRequestDispatcher("/cs-instructor-page.jsp").forward(request, response);
         }
+        else {
+            response.sendRedirect("/instructors?department=cnet");
+        }
     }
 
     public void destroy() {

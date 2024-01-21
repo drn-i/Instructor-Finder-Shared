@@ -3,7 +3,7 @@
 <html lang="english">
 <head>
   <title>${firstName} ${lastName}</title>
-  <meta property="og:title" content="Instructor-Page - exported project" />
+  <meta property="og:title" content="" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta charset="utf-8" />
   <meta property="twitter:card" content="summary_large_image" />
