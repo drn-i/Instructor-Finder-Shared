@@ -148,63 +148,63 @@
 <body>
 <link rel="stylesheet" href="./style.css" />
 <div>
-    <link href="./it-instructor-page.css" rel="stylesheet" />
+    <link href="./cs-instructor-page.css" rel="stylesheet" />
 
-    <div class="it-instructor-page-container">
-        <div class="it-instructor-page-backgroundgradientlight">
-            <h1 class="it-instructor-page-title1">
-                <span class="it-instructor-page-text">Instructors</span>
+    <div class="cs-instructor-page-container">
+        <div class="cs-instructor-page-backgroundgradientlight">
+            <h1 class="cs-instructor-page-title1">
+                <span class="cs-instructor-page-text">Instructors</span>
                 <br />
             </h1>
-            <div class="it-instructor-page-container1">
+            <div class="cs-instructor-page-container1">
 
-                <button type="button" class="it-instructor-page-cs-button button">
+                <button type="button" class="cs-instructor-page-it-button button">
                     <a href="/instructors?department=cs">
-                        <span class="it-instructor-page-text02">
+                        <span class="cs-instructor-page-text08">
                         <span>CS</span>
                         <br />
                         </span>
                     </a>
                 </button>
 
-                <button type="button" class="it-instructor-page-cnet-button button">
+                <button type="button" class="cs-instructor-page-cnet-button button">
                     <a href="/instructors?department=cnet">
-                        <span class="it-instructor-page-text05">
+                        <span class="cs-instructor-page-text05">
                         <span>CNET</span>
                         <br />
                         </span>
                     </a>
                 </button>
 
-                <button type="button" class="it-instructor-page-it-button button">
-                    <span class="it-instructor-page-text08">
-                    <span>IT</span>
-                    <br />
+                <button type="button" class="cs-instructor-page-cs-button button">
+                    <span class="cs-instructor-page-text02">
+                        <span>IT</span>
+                        <br />
                     </span>
                 </button>
 
             </div>
 
             <!-- Instructors List Container -->
-            <div class="it-instructor-page-container2">
+            <div class="cs-instructor-page-container2">
 
                 <!-- Instructor Container -->
                 <%
                     List<Instructor> instructorList = (List<Instructor>)request.getAttribute("instructorList");
                     if (instructorList != null && !instructorList.isEmpty()){
                         for (Instructor instructor : instructorList){%>
-                <div class="it-instructor-page-container2">
+                <div class="cs-instructor-page-instructor-container">
                     <a href="/instructor?id=<%=instructor.getInstructorID()%>">
                         <img
                                 alt="image"
-                                src="public/external/<%=instructor.getPhotoLink()%>.png"
-                                class="it-instructor-page-image"
+                                src="public/external/<%=instructor.getPhotoLink()%>"
+                                class="cs-instructor-page-image"
                         />
-                        <h3 class="it-instructor-page-text11">
+                        <h3 class="cs-instructor-page-text11">
                             <span><%=instructor.getFirstName()%> <%=instructor.getLastName()%></span>
                             <br />
                         </h3>
-                        <span class="it-instructor-page-text14">
+                        <span class="cs-instructor-page-text14">
                      <span><%=instructor.getDepartment()%></span>
                      <br />
                      </span>
@@ -215,31 +215,31 @@
 
             </div>
         </div>
-        <div class="it-instructor-page-bottombars">
-            <div class="it-instructor-page-bottomnavcustom">
-                <div class="it-instructor-page-navigationbar">
-                    <div class="it-instructor-page-home-button">
+        <div class="cs-instructor-page-bottombars">
+            <div class="cs-instructor-page-bottomnavcustom">
+                <div class="cs-instructor-page-navigationbar">
+                    <div class="cs-instructor-page-home-button">
                         <a href="/">
                             <img
                                     alt="image"
                                     src="public/external/page%20icon%205.svg"
-                                    class="it-instructor-page-image08"
+                                    class="cs-instructor-page-image08"
                             />
                         </a>
                     </div>
-                    <div class="it-instructor-page-instructor-button">
+                    <div class="cs-instructor-page-instructor-button">
                         <img
                                 alt="image"
                                 src="public/external/page%20icon%204.svg"
-                                class="it-instructor-page-image09"
+                                class="cs-instructor-page-image09"
                         />
                     </div>
-                    <div class="it-instructor-page-contact-button">
+                    <div class="cs-instructor-page-contact-button">
                         <a href="/contact">
                             <img
                                     alt="image"
                                     src="public/external/page%20icon%203.svg"
-                                    class="it-instructor-page-image10"
+                                    class="cs-instructor-page-image10"
                             />
                         </a>
                     </div>

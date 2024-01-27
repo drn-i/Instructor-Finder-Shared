@@ -1,7 +1,6 @@
+import connection.DatabaseConnection;
 import model.Instructor;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,8 @@ public class InstructorsHandler {
                         resultSet.getString("Floor"),
                         resultSet.getString("Department"),
                         resultSet.getString("Office"),
-                        resultSet.getString("DepartmentView")
+                        resultSet.getString("DepartmentView"),
+                        resultSet.getString("lastScheduleUpdateDate")
                 );
                 instructorList.add(instructor);
             }
@@ -54,7 +54,8 @@ public class InstructorsHandler {
                         resultSet.getString("Floor"),
                         resultSet.getString("Department"),
                         resultSet.getString("Office"),
-                        resultSet.getString("DepartmentView")
+                        resultSet.getString("DepartmentView"),
+                        resultSet.getString("lastScheduleUpdateDate")
                 );
                 instructorList.add(instructor);
             }
@@ -80,7 +81,8 @@ public class InstructorsHandler {
                         resultSet.getString("Floor"),
                         resultSet.getString("Department"),
                         resultSet.getString("Office"),
-                        resultSet.getString("DepartmentView")
+                        resultSet.getString("DepartmentView"),
+                        resultSet.getString("lastScheduleUpdateDate")
                 );
                 return instructor;
             }

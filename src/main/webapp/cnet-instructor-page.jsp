@@ -200,7 +200,7 @@
                     <a href="/instructor?id=<%=instructor.getInstructorID()%>">
                         <img
                                 alt="image"
-                                src="public/external/<%=instructor.getPhotoLink()%>.png"
+                                src="public/external/<%=instructor.getPhotoLink()%>"
                                 class="cnet-instructor-page-image"
                         />
                         <h3 class="cnet-instructor-page-text11">

@@ -197,7 +197,7 @@
                     <a href="/instructor?id=<%=instructor.getInstructorID()%>">
                         <img
                                 alt="image"
-                                src="public/external/<%=instructor.getPhotoLink()%>.png"
+                                src="public/external/<%=instructor.getPhotoLink()%>"
                                 class="cs-instructor-page-image"
                         />
                         <h3 class="cs-instructor-page-text11">

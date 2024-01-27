@@ -1,11 +1,12 @@
-<%@ page import="java.util.List" %>
-<%@ page import="model.Instructor" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="connection.DatabaseConnection" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="english">
 <head>
-    <title>Home</title>
-    <meta property="og:title" content="hassan AP-Course MiniProject" />
+    <title>Update Account</title>
+    <meta property="og:title" content="Update Account" />
+    <meta name="robots" content="noindex" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
     <meta property="twitter:card" content="summary_large_image" />
@@ -27,7 +28,7 @@
             letter-spacing: normal;
             line-height: 1.15;
             color: var(--dl-color-gray-black);
-            background-color: #faeeef;
+            background-color: var(--dl-color-gray-white);
 
         }
     </style>
@@ -144,103 +145,156 @@
             rel="stylesheet"
             href="https://unpkg.com/@teleporthq/teleport-custom-scripts/dist/style.css"
     />
-    <script src="index.js"></script>
 </head>
 <body>
 <link rel="stylesheet" href="./style.css" />
 <div>
-    <link href="./index.css" rel="stylesheet" />
+    <link href="./update-account-page.css" rel="stylesheet" />
 
-    <div class="home-page-container">
-        <div class="home-page-backgroundgradientlight">
+    <div class="update-account-page-container">
+        <div class="update-account-page-backgroundgradientlight">
 
-            <!-- Header Titles -->
-            <div class="home-page-header-container">
-                <h1 class="home-page-welcome-title">
-                    <span class="home-page-text">Welcome</span>
+            <%
+                //Check whether the instructor in session or not
+                if (session.getAttribute("id") != null && session.getAttribute("id") != ""){
+                    if (session.getAttribute("username") != null && session.getAttribute("username") != ""){
+            %>
+            <!-- Get Instructor Details -->
+            <%
+                ResultSet instructorInformations = DatabaseConnection.GetResultFromSQLQuery("SELECT * FROM instructors WHERE instructor_id=" + session.getAttribute("id") + "");
+                instructorInformations.next();
+            %>
+
+                <!-- Welcome Title -->
+                <h1 class="update-account-page-welcome-title">
+                    <span class="update-account-page-text">Welcome,</span>
                     <br />
                 </h1>
-                <h1 class="home-page-college-title">
-                    <span>Computer Science &amp; IT College</span>
+
+                <!-- Instructor Name Title -->
+                <h1 class="update-account-page-intructor-name-title">
+                    <span><%= instructorInformations.getString("FirstName")%> <%= instructorInformations.getString("LastName")%></span>
                     <br />
                 </h1>
-            </div>
 
-            <!-- Login Button -->
-            <button type="button" class="home-page-instructor-login-button button">
-                <a href="/intrustctorlogin">
-                    <span class="home-page-logintext">
-                    <span>Instructor Page</span>
-                    <br />
-                    </span>
-                </a>
-            </button>
+                <!-- Main Container -->
+                <div class="update-account-page-main-container">
+                    <div class="update-account-page-title-container">
 
-            <!-- SearchBar Input -->
-            <input
-                    type="text"
-                    placeholder="Search for Instructor"
-                    class="home-page-search-bar input"
-                    onkeyup="search()"
-            />
-
-            <!-- Instructors List -->
-            <div class="home-page-instructors-list">
-
-                <!-- Instructor Container -->
-                    <%
-                        List<Instructor> instructors = (List<Instructor>)request.getAttribute("instructors");
-                        if (instructors != null && !instructors.isEmpty()){
-                            for (Instructor instructor : instructors){%>
-                <div class="home-page-instructor-container">
-                    <a href="/instructor?id=<%=instructor.getInstructorID()%>">
-                        <img
-                                alt="image"
-                                src="public/external/<%=instructor.getPhotoLink()%>"
-                                class="home-page-image"
-                        />
-                        <h3 class="home-page-text04">
-                            <span><%=instructor.getFirstName()%> <%=instructor.getLastName()%></span>
+                        <!-- Title Container -->
+                        <h1 class="update-account-page-update-account-title">
+                            <span class="update-account-page-text04">
+                              Update Login Credentials
+                            </span>
                             <br />
-                        </h3>
-                        <span class="home-page-text07">
-                     <span><%=instructor.getDepartment()%></span>
-                     <br />
-                     </span>
-                    </a>
-                </div>
-                            <%}
-                        } %>
-            </div>
+                        </h1>
 
-            <span class="home-page-view-all"><a href="/instructors?department=cnet">View All</a></span>
+                        <!-- Account Update Error Title -->
+                        <%
+                            String updateError = (String) session.getAttribute("update-error");
+                            if (updateError != null){
+                                session.removeAttribute("update-error");
+                        %>
+                        <h1 class="update-account-page-updateError-title">
+                            <span class="update-account-page-updateError-title">Error Occurs While Updating Account Credentials for Instructor</span>
+                            <br />
+                        </h1>
+                        <%
+                            }
+                        %>
+
+                        <!-- Password Length Error Title -->
+                        <%
+                            String passwordLengthError = (String) session.getAttribute("length-error");
+                            if (passwordLengthError != null){
+                                session.removeAttribute("length-error");
+                        %>
+                        <h1 class="update-account-page-updateError-title">
+                            <span class="update-account-page-updateError-title">Error, The maximum new password length is 20</span>
+                            <br />
+                        </h1>
+                        <%
+                            }
+                        %>
+
+                        <!-- Old Password Incorrect Error Title -->
+                        <%
+                            String oldPasswordError = (String) session.getAttribute("oldpass-error");
+                            if (oldPasswordError != null){
+                                session.removeAttribute("oldpass-error");
+                        %>
+                        <h1 class="update-account-page-updateError-title">
+                            <span class="update-account-page-updateError-title">Error, The old password is incorrect!</span>
+                            <br />
+                        </h1>
+                        <%
+                            }
+                        %>
+
+                        <!-- Update Form -->
+                        <form id="informationsForm" name="informationsForm" class="update-account-page-update-account-form" action="updateaccount" method="post">
+
+                            <!-- Username -->
+                            <div class="update-account-page-username-form">
+                                <label for="usernameInput" class="update-account-page-username-label">Username</label>
+                                <input type="text" id="usernameInput" name="usernameInput" accept=";" required="true" placeholder="username" class="update-account-page-username-input input" value="<%= session.getAttribute("username")%>"/>
+                            </div>
+                            <!-- Old Password -->
+                            <div class="update-account-page-old-password-form">
+                                <label for="oldPasswordInput" class="update-account-page-old-password-label"><span>Old Password</span><br /></label>
+                                <input type="password" id="oldPasswordInput" name="oldPasswordInput" accept=";" required="true" placeholder="Old Password" class="update-account-page-old-passwrod-input input"/>
+                            </div>
+
+                            <!-- New Password -->
+                            <div class="update-account-page-new-password-form">
+                                <label for="newPasswordInput" class="update-account-page-new-password-label"><span>New Password</span><br /></label>
+                                <input type="password" id="newPasswordInput" name="newPasswordInput" accept=";" required="true" placeholder="New Password" class="update-account-page-new-passwrod-input input"/>
+                            </div>
+
+                            <!-- Update Button -->
+                            <button id="updateButton" name="updateButton" type="submit" class="update-account-page-update-button button">
+                                <span>
+                                    <span class="update-account-page-text11">Update</span>
+                                    <br />
+                                </span>
+                            </button>
+
+                        </form>
+                    </div>
+                </div>
+            <%}}
+            else {
+                response.sendRedirect("login-page.jsp");
+            }%>
 
         </div>
-        <div class="home-page-bottombars">
-            <div class="home-page-bottomnavcustom">
-                <div class="home-page-navigationbar">
-                    <div class="home-page-home-button">
-                        <img
-                                alt="image"
-                                src="public/external/page%20icon%201.svg"
-                                class="home-page-image07"
-                        />
+        <div class="update-account-page-bottombars">
+            <div class="update-account-page-bottomnavcustom">
+                <div class="update-account-page-navigationbar">
+                    <div class="update-account-page-home-button">
+                        <a href="/">
+                            <img
+                                    alt="image"
+                                    src="public/external/page%20icon%205.svg"
+                                    class="update-account-page-image"
+                            />
+                        </a>
                     </div>
-                    <div class="home-page-instructor-button">
+                    <div class="update-account-page-instructor-button">
                         <a href="/instructors?department=cnet">
                             <img
                                     alt="image"
                                     src="public/external/page%20icon%202.svg"
-                                    class="home-page-image08"
+                                    class="update-account-page-image1"
                             />
                         </a>
                     </div>
-                    <div class="home-page-contact-button">
+                    <div class="update-account-page-contact-button">
                         <a href="/contact">
                             <img
                                     alt="image"
                                     src="public/external/page%20icon%203.svg"
-                                    class="home-page-image09"
+                                    class="update-account-page-image2"
                             />
                         </a>
                     </div>

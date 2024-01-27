@@ -1,11 +1,12 @@
+<%@ page import="model.Contact" %>
 <%@ page import="java.util.List" %>
-<%@ page import="model.Instructor" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="english">
 <head>
-    <title>Home</title>
-    <meta property="og:title" content="hassan AP-Course MiniProject" />
+    <title>Instructor Login</title>
+    <meta property="og:title" content="Instructor Login" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
     <meta property="twitter:card" content="summary_large_image" />
@@ -144,103 +145,105 @@
             rel="stylesheet"
             href="https://unpkg.com/@teleporthq/teleport-custom-scripts/dist/style.css"
     />
-    <script src="index.js"></script>
 </head>
 <body>
 <link rel="stylesheet" href="./style.css" />
 <div>
-    <link href="./index.css" rel="stylesheet" />
+    <link href="./login-page.css" rel="stylesheet" />
 
-    <div class="home-page-container">
-        <div class="home-page-backgroundgradientlight">
+    <div class="login-page-container">
+        <div class="login-page-backgroundgradientlight">
+            <h1 class="login-page-contact-title">
+                <span class="login-page-text">Instructor Login</span>
+                <br />
+            </h1>
 
-            <!-- Header Titles -->
-            <div class="home-page-header-container">
-                <h1 class="home-page-welcome-title">
-                    <span class="home-page-text">Welcome</span>
+            <!-- Login Container -->
+            <div class="login-page-contacts-container">
+
+                <%
+                    String error = (String) session.getAttribute("error");
+
+                    if (error != null){
+                        session.removeAttribute("error");
+                        %>
+                    <h1 class="login-page-error-title">
+                        <span class="login-page-error-text">You have enter wrong credentials</span>
+                        <br />
+                    </h1>
+                <%
+                    }
+                %>
+
+                <!-- Account Update Done Title -->
+                <%
+                    String updateDone = (String) session.getAttribute("update-done");
+                    if (updateDone != null){
+                        session.removeAttribute("update-done");
+                %>
+                <h1 class="login-page-account-update-title">
+                    <span class="login-page-account-update-text">Account Credentials Updated!</span>
                     <br />
                 </h1>
-                <h1 class="home-page-college-title">
-                    <span>Computer Science &amp; IT College</span>
-                    <br />
-                </h1>
+                <%
+                    }
+                %>
+
+                <!-- Login Form -->
+                <form class="login-page-login-form" action="intrustctorlogin" method="post">
+
+                    <label id="uname-label" for="uname" class="login-page-uname-label">Username</label>
+                    <input type="text" placeholder="Enter Your Username" id="uname" name="uname" required="true" class="login-page-username-input input"/>
+
+                    <label id="password-label" for="password" class="login-page-password-label">Password</label>
+                    <input type="password" placeholder="Enter Your Password" id="password" name="password" required="true" class="login-page-password-input input"/>
+
+                    <button type="submit" class="login-page-login-button button" value=""><span class="login-page-login-text">
+                        <span>Login</span>
+                        <br /></span>
+                    </button>
+
+                    <label class="login-page-text4">
+                        <span>
+                          If you do not have the login credential, please contact the
+                          developer.
+                        </span>
+                        <br />
+                        <span>+966554418933</span>
+                        <br />
+                    </label>
+                </form>
             </div>
 
-            <!-- Login Button -->
-            <button type="button" class="home-page-instructor-login-button button">
-                <a href="/intrustctorlogin">
-                    <span class="home-page-logintext">
-                    <span>Instructor Page</span>
-                    <br />
-                    </span>
-                </a>
-            </button>
-
-            <!-- SearchBar Input -->
-            <input
-                    type="text"
-                    placeholder="Search for Instructor"
-                    class="home-page-search-bar input"
-                    onkeyup="search()"
-            />
-
-            <!-- Instructors List -->
-            <div class="home-page-instructors-list">
-
-                <!-- Instructor Container -->
-                    <%
-                        List<Instructor> instructors = (List<Instructor>)request.getAttribute("instructors");
-                        if (instructors != null && !instructors.isEmpty()){
-                            for (Instructor instructor : instructors){%>
-                <div class="home-page-instructor-container">
-                    <a href="/instructor?id=<%=instructor.getInstructorID()%>">
-                        <img
-                                alt="image"
-                                src="public/external/<%=instructor.getPhotoLink()%>"
-                                class="home-page-image"
-                        />
-                        <h3 class="home-page-text04">
-                            <span><%=instructor.getFirstName()%> <%=instructor.getLastName()%></span>
-                            <br />
-                        </h3>
-                        <span class="home-page-text07">
-                     <span><%=instructor.getDepartment()%></span>
-                     <br />
-                     </span>
-                    </a>
-                </div>
-                            <%}
-                        } %>
-            </div>
-
-            <span class="home-page-view-all"><a href="/instructors?department=cnet">View All</a></span>
 
         </div>
-        <div class="home-page-bottombars">
-            <div class="home-page-bottomnavcustom">
-                <div class="home-page-navigationbar">
-                    <div class="home-page-home-button">
-                        <img
-                                alt="image"
-                                src="public/external/page%20icon%201.svg"
-                                class="home-page-image07"
-                        />
-                    </div>
-                    <div class="home-page-instructor-button">
-                        <a href="/instructors?department=cnet">
+        <div class="login-page-bottombars">
+            <div class="login-page-bottomnavcustom">
+                <div class="login-page-navigationbar">
+                    <div class="login-page-home-button">
+                        <a href="/">
                             <img
                                     alt="image"
-                                    src="public/external/page%20icon%202.svg"
-                                    class="home-page-image08"
+                                    src="public/external/page%20icon%205.svg"
+                                    class="login-page-image"
                             />
                         </a>
                     </div>
-                    <div class="home-page-contact-button">
+                    <div class="login-page-instructor-button">
+                        <a href="/instructors?department=cnet">
+                            <img
+                                    alt="image"
+                                    src="public/external/page%20icon%206.svg"
+                                    class="login-page-image1"
+                            />
+                        </a>
+                    </div>
+                    <div class="login-page-contact-button">
                         <a href="/contact">
                             <img
                                     alt="image"
                                     src="public/external/page%20icon%203.svg"
-                                    class="home-page-image09"
+                                    class="login-page-image2"
                             />
                         </a>
                     </div>

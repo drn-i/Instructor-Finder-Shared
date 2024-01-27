@@ -1,9 +1,11 @@
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="connection.DatabaseConnection" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="english">
 <head>
-  <title>${firstName} ${lastName}</title>
-  <meta property="og:title" content="" />
+  <title>${firstName} ${lastName} Schedule</title>
+  <meta property="og:title" content="Instructor Schedule" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta charset="utf-8" />
   <meta property="twitter:card" content="summary_large_image" />
@@ -146,166 +148,152 @@
 <body>
 <link rel="stylesheet" href="./style.css" />
 <div>
-  <link href="./instructor-page.css" rel="stylesheet" />
+  <link href="./instructor-schedule-page.css" rel="stylesheet" />
 
-  <div class="instructor-page-container">
+  <div class="instructor-schedule-page-container">
 
-    <div class="instructor-page-backgroundgradientlight">
+    <div class="instructor-schedule-page-backgroundgradientlight">
 
-      <h1 class="instructor-page-instructor-name">
-        <span class="instructor-page-text">${firstName} ${lastName}</span>
+      <h1 class="instructor-schedule-page-instructor-name">
+        <span class="instructor-schedule-page-text">${firstName} ${lastName}</span>
         <br />
       </h1>
 
       <!-- Image and Socials Container -->
-      <div class="instructor-page-image-container">
+      <div class="instructor-schedule-page-image-container">
         <img
                 alt="image"
                 src="public/external/${photoLink}"
-                class="instructor-page-instructor-image"
+                class="instructor-schedule-page-instructor-image"
         />
-        <div class="instructor-page-socials-container">
+        <div class="instructor-schedule-page-socials-container">
 
           <!-- Phone Number Button -->
           <% if (request.getAttribute("social1") != null && !request.getAttribute("social1").equals("")) { %>
-              <a href="tel:${social1}">
-                <img
-                        alt="image"
-                        src="public/external/phoneicon.svg"
-                        class="instructor-page-social1"
-                />
-              </a>
+          <a href="tel:${social1}">
+            <img
+                    alt="image"
+                    src="public/external/phoneicon.svg"
+                    class="instructor-schedule-page-social1"
+            />
+          </a>
           <% } %>
 
           <!-- Email Button -->
           <% if (request.getAttribute("social2") != null && !request.getAttribute("social2").equals("")) { %>
-              <a href="mailto:${social2}">
-                <img
-                        alt="image"
-                        src="public/external/mailicon.svg"
-                        class="instructor-page-social2"
-                />
-              </a>
+          <a href="mailto:${social2}">
+            <img
+                    alt="image"
+                    src="public/external/mailicon.svg"
+                    class="instructor-schedule-page-social2"
+            />
+          </a>
           <% } %>
 
         </div>
       </div>
 
-      <div class="instructor-page-container100">
-        <button type="button" class="instructor-page-office-button1 button">
-              <span class="instructor-page-office-text1">
+      <div class="instructor-schedule-page-container100">
+        <button type="button" class="instructor-schedule-page-office-button1 button">
+          <a href="/instructor?id=${id}">
+              <span class="instructor-schedule-page-office-text1">
               <span>Office</span>
               <br />
               </span>
+          </a>
         </button>
-        <button type="button" class="instructor-page-schedule-button1 button">
-          <a href="/instructorscheduleview?id=${id}">
-              <span class="instructor-page-schedule-text1">
+        <button type="button" class="instructor-schedule-page-schedule-button1 button">
+              <span class="instructor-schedule-page-schedule-text1">
               <span>Schedule</span>
               <br />
-              </span>
-          </a>
-
+                </span>
         </button>
       </div>
 
+      <!-- Get Instructor Details -->
+      <%
+        ResultSet instructorSchedule = DatabaseConnection.GetInstructorSchedule(Integer.valueOf(request.getParameter("id")));
+      %>
 
-      <h1 class="instructor-page-office-title">
-        <span class="instructor-page-text02">Office</span>
+      <h1 class="instructor-schedule-page-office-title">
+        <span class="instructor-schedule-page-text02">Instructor Schedule</span>
         <br />
       </h1>
 
-      <!-- Informations Container -->
-      <div class="instructor-page-informations-container">
-
-        <!-- Details Title -->
-        <div class="instructor-page-details-container1">
-          <div class="instructor-page-container1">
-                <span class="instructor-page-text04">
-                  <span>Floor:</span>
-                  <br />
-                </span>
-          </div>
-          <div class="instructor-page-container2">
-                <span class="instructor-page-text07">
-                  <span>Department:</span>
-                  <br />
-                </span>
-          </div>
-          <div class="instructor-page-container3">
-                <span class="instructor-page-text10">
-                  <span>Office #</span>
-                  <br />
-                </span>
-          </div>
-        </div>
-
-        <!-- Informations -->
-        <div class="instructor-page-details-container2">
-          <div class="instructor-page-floor-details">
-                <span class="instructor-page-text13">
-                  <span>${floor}</span>
-                  <br />
-                </span>
-          </div>
-          <div class="instructor-page-department-details">
-                <span class="instructor-page-text16">
-                  <span>${department}</span>
-                  <br />
-                </span>
-          </div>
-          <div class="instructor-page-office-details">
-                <span class="instructor-page-text19">
-                  <span>${office}</span>
-                  <br />
-                </span>
-          </div>
-        </div>
-
-      </div>
-
-      <h1 class="instructor-page-location-view-title">
-        <span class="instructor-page-text22">Department View</span>
+      <h1 class="instructor-schedule-page-office-title1">
+        <span>Last Update: ${lastScheduleUpdateDate}</span>
         <br />
       </h1>
 
-      <!-- Department View Image -->
-      <div class="instructor-page-location-view-container">
-        <img
-                alt="image"
-                src="public/external/${departmentView}.svg"
-                class="instructor-page-location-view-image"
-        />
+      <div class="instructor-schedule-page-container2">
+        <div class="instructor-schedule-page-container3">
+          <div class="instructor-schedule-page-container4">
+
+            <style>
+              table {width: 100%; border-collapse: collapse; margin-top: 20px;}
+              th, td {border: 1px solid #ddd; padding: 10px; text-align: left;}
+              th {background-color: #dcdcdc;}
+            </style>
+
+            <!-- Schedule Table -->
+            <% if (instructorSchedule != null) {%>
+            <table>
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>Day</th>
+                <th>Time</th>
+                <th>Title</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <% int i=1; while (instructorSchedule.next()){%>
+              <tr>
+                <td><%=i%></td>
+                <td><%=instructorSchedule.getString("day")%></td>
+                <td><%=instructorSchedule.getString("time")%></td>
+                <td><%=instructorSchedule.getString("title")%></td>
+              </tr>
+              <% i++;
+              } %>
+
+              </tbody>
+            </table>
+            <% } %>
+
+          </div>
+        </div>
       </div>
 
     </div>
-    <div class="instructor-page-bottombars">
-      <div class="instructor-page-bottomnavcustom">
-        <div class="instructor-page-navigationbar">
-          <div class="instructor-page-home-button">
+    <div class="instructor-schedule-page-bottombars">
+      <div class="instructor-schedule-page-bottomnavcustom">
+        <div class="instructor-schedule-page-navigationbar">
+          <div class="instructor-schedule-page-home-button">
             <a href="/">
               <img
                       alt="image"
                       src="public/external/page%20icon%205.svg"
-                      class="instructor-page-image"
+                      class="instructor-schedule-page-image"
               />
             </a>
           </div>
-          <div class="instructor-page-instructor-button">
+          <div class="instructor-schedule-page-instructor-button">
             <a href="/instructors?department=cnet">
               <img
                       alt="image"
                       src="public/external/page%20icon%204.svg"
-                      class="instructor-page-image1"
+                      class="instructor-schedule-page-image1"
               />
             </a>
           </div>
-          <div class="instructor-page-contact-button">
+          <div class="instructor-schedule-page-contact-button">
             <a href="/contact">
               <img
                       alt="image"
                       src="public/external/page%20icon%203.svg"
-                      class="instructor-page-image2"
+                      class="instructor-schedule-page-image2"
               />
             </a>
           </div>

@@ -1,3 +1,4 @@
+import connection.DatabaseConnection;
 import model.Contact;
 
 import java.sql.ResultSet;

@@ -14,15 +14,25 @@ public class Instructor implements Serializable {
     private String department;
     private String office;
     private String departmentView;
+    private String lastScheduleUpdateDate;
+
+    public String getLastScheduleUpdateDate() {
+        return lastScheduleUpdateDate;
+    }
+
+    public void setLastScheduleUpdateDate(String lastScheduleUpdateDate) {
+        this.lastScheduleUpdateDate = lastScheduleUpdateDate;
+    }
 
     //Default Constructor
-    public Instructor(int instructorID, String firstName, String lastName, String floor, String department, String office) {
+    public Instructor(int instructorID, String firstName, String lastName, String floor, String department, String office, String lastScheduleUpdateDate) {
         this.instructorID = instructorID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.floor = floor;
         this.department = department;
         this.office = office;
+        this.lastScheduleUpdateDate = lastScheduleUpdateDate;
     }
 
     public int getInstructorID() {
@@ -34,7 +44,7 @@ public class Instructor implements Serializable {
     }
 
     //Full Constructor
-    public Instructor(int instructorID, String firstName, String lastName, String photoLink, String social1, String social2, String floor, String department, String office, String departmentView) {
+    public Instructor(int instructorID, String firstName, String lastName, String photoLink, String social1, String social2, String floor, String department, String office, String departmentView, String lastScheduleUpdateDate) {
         this.instructorID = instructorID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -45,6 +55,7 @@ public class Instructor implements Serializable {
         this.department = department;
         this.office = office;
         this.departmentView = departmentView;
+        this.lastScheduleUpdateDate = lastScheduleUpdateDate;
     }
 
     public String getFirstName() {
